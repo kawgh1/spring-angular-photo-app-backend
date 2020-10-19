@@ -80,7 +80,12 @@ public class AccountServiceImpl implements AccountService {
         }
 
         // but send the plaintext password to the user email (not ideal, but functional) to confirm
-        mailSender.send(emailConstructor.constructNewUserEmail(appUser, password));
+        try {
+            mailSender.send(emailConstructor.constructNewUserEmail(appUser, password));
+        } catch (Exception e) {
+            System.out.println("mail not working");
+            e.printStackTrace();
+        }
         return appUser;
     }
 

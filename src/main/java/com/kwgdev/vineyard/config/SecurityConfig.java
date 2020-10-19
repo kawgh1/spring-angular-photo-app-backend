@@ -1,6 +1,7 @@
 package com.kwgdev.vineyard.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -27,9 +28,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     // trying to authenticate our users
 
     // define array of URLs that users can access without being authenticated
-    private static final String[] PUBLIC_MATCHERS = {"user/login", "/user/register", "/user/resetPassword/**", "/image/**"};
+    private static final String[] PUBLIC_MATCHERS = {"/user/login", "/user/register", "/user/resetPassword/**", "/image/**"};
 //    private static final String[] PUBLIC_MATCHERS = {"/**"};
 
+    @Qualifier("userDetailsServiceImpl")
     @Autowired
     private UserDetailsService userDetailsService;
 

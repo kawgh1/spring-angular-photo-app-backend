@@ -16,9 +16,6 @@ public class VineyardApplication {
 		return new BCryptPasswordEncoder();
 	}
 
-	@Bean
-	public TemplateEngine templateEngine() { return new TemplateEngine();}
-
 	public static void main(String[] args) {
 		SpringApplication.run(VineyardApplication.class, args);
 	}

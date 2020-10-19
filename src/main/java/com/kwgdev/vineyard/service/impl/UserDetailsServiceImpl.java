@@ -10,7 +10,9 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Set;
@@ -18,6 +20,8 @@ import java.util.Set;
 /**
  * created by kw on 10/18/2020 @ 11:51 PM
  */
+@Service
+@Transactional
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired

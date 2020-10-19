@@ -36,15 +36,12 @@
 <!--		used to access the environment in the application -->
 		<dependency>
 			<groupId>org.springframework</groupId>
-			<artifactId>spring-context</artifactId>
-			<version>5.2.6.RELEASE</version>
+			<artifactId>spring-context-support</artifactId>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/org.thymeleaf/thymeleaf -->
 		<dependency>
-			<groupId>org.thymeleaf</groupId>
-			<artifactId>thymeleaf</artifactId>
-			<version>3.0.11.RELEASE</version>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/com.sun.mail/javax.mail -->
@@ -59,15 +56,14 @@
 		<dependency>
 			<groupId>javax.mail</groupId>
 			<artifactId>javax.mail-api</artifactId>
-			<version>1.6.2</version>
 		</dependency>
 
-<!--		https://mkyong.com/spring-boot/spring-boot-how-to-send-email-via-smtp/ -->
-		<!-- send email -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-mail</artifactId>
-		</dependency>
+<!--&lt;!&ndash;		https://mkyong.com/spring-boot/spring-boot-how-to-send-email-via-smtp/ &ndash;&gt;-->
+<!--		&lt;!&ndash; send email &ndash;&gt;-->
+<!--		<dependency>-->
+<!--			<groupId>org.springframework.boot</groupId>-->
+<!--			<artifactId>spring-boot-starter-mail</artifactId>-->
+<!--		</dependency>-->
 
 
 		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
@@ -116,10 +112,10 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-core</artifactId>
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>org.springframework.security</groupId>-->
+<!--			<artifactId>spring-security-core</artifactId>-->
+<!--		</dependency>-->
 	</dependencies>
 
 	<build>

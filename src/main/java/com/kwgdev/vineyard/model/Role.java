@@ -60,12 +60,15 @@ public class Role implements Serializable {
         this.userRoles = userRoles;
     }
 
-    @Override
-    public String toString() {
-        return "Role{" +
-                "roleId=" + roleId +
-                ", name='" + name + '\'' +
-                ", userRoles=" + userRoles +
-                '}';
-    }
+    // commented out because this toString method was interfering with authentication headers
+//    @Override
+//    public String toString() {
+//        return "Role{" +
+//                "roleId=" + roleId +
+//                ", name='" + name + '\'' +
+//                ", userRoles=" + userRoles +
+//                '}';
+//    }
+
+
 }

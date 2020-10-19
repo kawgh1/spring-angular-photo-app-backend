@@ -47,7 +47,7 @@ public class JwtAuthentication extends UsernamePasswordAuthenticationFilter {
 
         try{
             // ObjectMapper is from Jackson, reads JSON from user request to log in and tries to convert to Java Object AppUser
-            appUser = new ObjectMapper().readValue(request.getInputStream(), AppUser.class);
+            appUser = objectMapper.readValue(request.getInputStream(), AppUser.class);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -86,7 +86,8 @@ public class JwtAuthentication extends UsernamePasswordAuthenticationFilter {
         String jwtToken = JWT.create()
                 // this is the company/issuer (google.com, facebook.com, etc.)
                 // if local host it will be "localhost:xxxx/login"
-                .withIssuer(request.getRequestURI())
+                //.withIssuer(request.getRequestURI())
+                .withIssuer("Vineyard Company")
                 // for this user
                 .withSubject(user.getUsername())
                 // pass on the roles for that token
