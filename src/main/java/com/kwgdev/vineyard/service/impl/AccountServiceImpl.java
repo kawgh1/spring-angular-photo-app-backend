@@ -52,11 +52,11 @@ public class AccountServiceImpl implements AccountService {
     private JavaMailSender mailSender;
 
 
-
+// auto generated password
     @Override
     @Transactional
     public AppUser saveUser(String name, String username, String email) {
-        String password = RandomStringUtils.randomAlphanumeric(10);
+        String password = RandomStringUtils.randomAlphanumeric(6);
         // save the encrypted password to the database
         String encryptedPassword = bCryptPasswordEncoder.encode(password);
 
@@ -86,8 +86,12 @@ public class AccountServiceImpl implements AccountService {
             System.out.println("mail not working");
             e.printStackTrace();
         }
+
+
         return appUser;
     }
+
+
 
     @Override
     public void updateUserPassword(AppUser appUser, String newpassword) {
@@ -161,7 +165,7 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public void resetPassword(AppUser appUser) {
 
-        String password = RandomStringUtils.randomAlphanumeric(10);
+        String password = RandomStringUtils.randomAlphanumeric(6);
         String encryptedPassword = bCryptPasswordEncoder.encode(password);
 
         appUser.setPassword(encryptedPassword);

@@ -28,7 +28,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     // trying to authenticate our users
 
     // define array of URLs that users can access without being authenticated
-    private static final String[] PUBLIC_MATCHERS = {"/user/login", "/user/register", "/user/resetPassword/**", "/image/**"};
+    private static final String[] PUBLIC_MATCHERS = {"/user/login", "/user/register", "/user/resetPassword/**", "/images/**"};
 //    private static final String[] PUBLIC_MATCHERS = {"/**"};
 
     @Qualifier("userDetailsServiceImpl")

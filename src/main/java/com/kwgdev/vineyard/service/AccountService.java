@@ -12,7 +12,9 @@ import java.util.List;
  */
 public interface AccountService {
 
-    public AppUser saveUser(String name, String username, String email);
+    // auto generated password
+     public AppUser saveUser(String name, String username, String email);
+
 
     public AppUser findByUsername(String username);
 
@@ -24,6 +26,7 @@ public interface AccountService {
 
     public Role saveRole(Role role);
 
+    // user change password
     public void updateUserPassword(AppUser appUser, String newpassword);
 
     public AppUser updateUser(AppUser user, HashMap<String, String> request);
@@ -34,7 +37,9 @@ public interface AccountService {
 
     public void deleteUser(AppUser appUser);
 
+    // auto generated password reset - email
     public void resetPassword(AppUser user);
+
 
     public List<AppUser> getUsersListByUsername(String username);
 

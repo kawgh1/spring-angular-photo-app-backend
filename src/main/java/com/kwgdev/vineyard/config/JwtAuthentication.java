@@ -85,9 +85,9 @@ public class JwtAuthentication extends UsernamePasswordAuthenticationFilter {
         // give user their jwt token
         String jwtToken = JWT.create()
                 // this is the company/issuer (google.com, facebook.com, etc.)
-                // if local host it will be "localhost:xxxx/login"
+                // if local host it will be front end "localhost:4200/login"
                 //.withIssuer(request.getRequestURI())
-                .withIssuer("Vineyard Company")
+                .withIssuer("localhost:4200/login")
                 // for this user
                 .withSubject(user.getUsername())
                 // pass on the roles for that token

@@ -69,7 +69,7 @@ public class PostResource {
             List<Post> posts = postService.findPostByUsername(username);
             return new ResponseEntity<>(posts, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>("Error Occured", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Error Occurred", HttpStatus.BAD_REQUEST);
         }
     }
 

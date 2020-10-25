@@ -27,7 +27,7 @@ public class AccountResource {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    private AccountService accountService;
+    AccountService accountService;
 
 
 
@@ -46,9 +46,13 @@ public class AccountResource {
     public ResponseEntity<?> getUserInfo(@PathVariable("username") String username) {
 
         AppUser user = accountService.findByUsername(username);
+
         if (user == null) {
             return new ResponseEntity<>("No User Found!", HttpStatus.OK);
         }
+
+        System.out.println("user: " + user);
+        System.out.println("username: " + user.getUsername());
 
         return new ResponseEntity<>(user, HttpStatus.OK);
 
@@ -81,12 +85,18 @@ public class AccountResource {
         }
 
         String email = request.get("email");
-        if (accountService.findByEmail(email) != null) {
-            return new ResponseEntity<>("emailExist", HttpStatus.CONFLICT);
-        }
+
+        // allowing multiple accounts per email address because there are no users
+
+//        if (accountService.findByEmail(email) != null) {
+//            return new ResponseEntity<>("emailExist", HttpStatus.CONFLICT);
+//        }
 
         String name = request.get("name");
+
+
         try {
+//            auto generated password
             AppUser user = accountService.saveUser(name, username, email);
             return new ResponseEntity<>(user, HttpStatus.OK );
         }

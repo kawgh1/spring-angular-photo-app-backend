@@ -32,7 +32,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     // and check it against existing users from accountService
 
     @Override
-    public UserDetails loadUserByUsername(String username) {
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException{
 
         AppUser appUser = accountService.findByUsername(username);
         // if the user does not exist, return error

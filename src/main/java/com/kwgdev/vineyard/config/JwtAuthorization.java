@@ -123,6 +123,8 @@ public class JwtAuthorization extends OncePerRequestFilter {
                 // if we've gotten to this point, we know the user is legitimate
                 // token is good, username checks out, roles/authorities check out
 
+                System.out.println("User has been authenticated");
+
 
                 // password is null here, we don't care about the password at this point
                 UsernamePasswordAuthenticationToken authenticatedUser = new UsernamePasswordAuthenticationToken(username,

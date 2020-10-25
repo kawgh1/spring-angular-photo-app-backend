@@ -19,7 +19,7 @@ import java.util.Date;
 public class CommentServiceImpl implements CommentService {
 
     @Autowired
-    private CommentRepository commentRepository;
+    CommentRepository commentRepository;
 
     @Override
     public void saveComment(Post post, String username, String content) {
