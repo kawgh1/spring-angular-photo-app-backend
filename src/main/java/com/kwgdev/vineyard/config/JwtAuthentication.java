@@ -87,7 +87,7 @@ public class JwtAuthentication extends UsernamePasswordAuthenticationFilter {
                 // this is the company/issuer (google.com, facebook.com, etc.)
                 // if local host it will be front end "localhost:4200/login"
                 //.withIssuer(request.getRequestURI())
-                .withIssuer("localhost:4200/login")
+                .withIssuer("https://spring-angular-photoshar-front.herokuapp.com")
                 // for this user
                 .withSubject(user.getUsername())
                 // pass on the roles for that token
