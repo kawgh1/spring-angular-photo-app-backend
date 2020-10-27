@@ -105,13 +105,14 @@ public class PostResource {
     }
 
 
+
     @PostMapping("/photo/upload")
     public ResponseEntity<String> fileUpload(@RequestParam("image") MultipartFile multipartFile) {
         try {
             postService.savePostImage(multipartFile, postImageName);
             return new ResponseEntity<>("Picture Saved!", HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>("Picture was saved", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Picture was not saved", HttpStatus.BAD_REQUEST);
         }
     }
 

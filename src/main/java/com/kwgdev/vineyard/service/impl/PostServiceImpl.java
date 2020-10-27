@@ -4,6 +4,7 @@ import com.kwgdev.vineyard.model.AppUser;
 import com.kwgdev.vineyard.model.Post;
 import com.kwgdev.vineyard.repository.PostRepository;
 import com.kwgdev.vineyard.service.PostService;
+import com.kwgdev.vineyard.utility.AmazonClient;
 import com.kwgdev.vineyard.utility.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -32,6 +35,9 @@ public class PostServiceImpl implements PostService {
 
     @Autowired
     private PostRepository postRepository;
+
+    @Autowired
+    private AmazonClient amazonClient;
 
     @Override
     public Post savePost(AppUser user, HashMap<String, String> request, String postImageName) {
@@ -64,10 +70,38 @@ public class PostServiceImpl implements PostService {
         return postRepository.findPostByUsername(username);
     }
 
+    // localhost server method
+//    @Override
+//    public Post deletePost(Post post) {
+//        try {
+//            Files.deleteIfExists(Paths.get(Constants.POST_FOLDER + "/" + post.getName() + ".png"));
+//            postRepository.deletePostById(post.getId());
+//            return post;
+//        } catch (Exception e) {
+//            return null;
+//        }
+//    }
+
+    // localhost server method
+//    @Override
+//    public Post deletePost(Post post) {
+//        try {
+//            Files.deleteIfExists(Paths.get(Constants.POST_FOLDER + "/" + post.getName() + ".png"));
+//            postRepository.deletePostById(post.getId());
+//            return post;
+//        } catch (Exception e) {
+//            return null;
+//        }
+//    }
+
     @Override
     public Post deletePost(Post post) {
         try {
-            Files.deleteIfExists(Paths.get(Constants.POST_FOLDER + "/" + post.getName() + ".png"));
+//            Files.deleteIfExists(Paths.get(Constants.POST_FOLDER + "/" + post.getName() + ".png"));
+
+            // unique image name
+            String imageName = post.getName() + ".png";
+            amazonClient.deleteFileFromS3Bucket(imageName);
             postRepository.deletePostById(post.getId());
             return post;
         } catch (Exception e) {
@@ -75,8 +109,31 @@ public class PostServiceImpl implements PostService {
         }
     }
 
+    // localhost server method
+//    @Override
+//    public String savePostImage(MultipartFile multipartFile, String fileName) {
+//
+//        /*
+//         * MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest)
+//         * request; Iterator<String> it = multipartRequest.getFileNames(); MultipartFile
+//         * multipartFile = multipartRequest.getFile(it.next());
+//         */
+//
+//
+//        try {
+//            byte[] bytes = multipartFile.getBytes();
+//            Path path = Paths.get(Constants.POST_FOLDER + fileName + ".png");
+//            Files.write(path, bytes, StandardOpenOption.CREATE);
+//        } catch (IOException e) {
+//            System.out.println("Error occurred. Photo not saved!");
+//            return "Error occurred. Photo not saved!";
+//        }
+//        System.out.println("Photo saved successfully!");
+//        return "Photo saved successfully!";
+//    }
+
     @Override
-    public String savePostImage(MultipartFile multipartFile, String fileName) {
+    public String savePostImage(MultipartFile multipartFile, String postImageName) {
 
         /*
          * MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest)
@@ -84,16 +141,16 @@ public class PostServiceImpl implements PostService {
          * multipartFile = multipartRequest.getFile(it.next());
          */
 
-        try {
-            byte[] bytes = multipartFile.getBytes();
-            Path path = Paths.get(Constants.POST_FOLDER + fileName + ".png");
-            Files.write(path, bytes, StandardOpenOption.CREATE);
-        } catch (IOException e) {
-            System.out.println("Error occured. Photo not saved!");
-            return "Error occured. Photo not saved!";
-        }
-        System.out.println("Photo saved successfully!");
+
+        amazonClient.uploadFile(multipartFile, postImageName);
+
+
         return "Photo saved successfully!";
     }
+
+
+
+
+
 
 }

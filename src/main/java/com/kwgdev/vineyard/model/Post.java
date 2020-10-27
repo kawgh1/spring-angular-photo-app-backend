@@ -30,7 +30,9 @@ public class Post implements Serializable {
     @Column(nullable = false, updatable = false)
     private Long id;
 
+    // used for amazon s3 image url for retrieval
     private String name;
+
 
     @Column(columnDefinition = "text")
     private String caption;
@@ -135,6 +137,8 @@ public class Post implements Serializable {
         }
         return null;
     }
+
+
 
     @JsonIgnore
     public void setComments(Comment comment) {
