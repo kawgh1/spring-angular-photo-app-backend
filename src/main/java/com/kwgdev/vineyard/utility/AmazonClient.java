@@ -65,7 +65,7 @@ public class AmazonClient {
 
     public String deleteFileFromS3Bucket(String fileUrl) {
         String fileName = fileUrl + ".png";
-        s3client.deleteObject(new DeleteObjectRequest(bucketName + "/images/posts/", fileName));
+        s3client.deleteObject(new DeleteObjectRequest(bucketName, fileName));
         return "Successfully deleted";
     }
 
