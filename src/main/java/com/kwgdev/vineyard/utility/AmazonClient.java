@@ -28,6 +28,9 @@ import java.util.Date;
 //        Annotation @PostConstruct is needed to run this method after constructor will be called,
 //        because class fields marked with @Value annotation is null in the constructor.
 
+    // Notes
+//    https://stackoverflow.com/questions/26691286/amazon-s3-bucket-returning-403-forbidden
+
 @Service
 public class AmazonClient {
 

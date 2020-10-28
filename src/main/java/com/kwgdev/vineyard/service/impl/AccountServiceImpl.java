@@ -203,11 +203,17 @@ public class AccountServiceImpl implements AccountService {
 //            Path path = Paths.get(Constants.USER_FOLDER + userImageId + ".png");
 //            Files.write(path, bytes);
 
-        String userImageIdString = userImageId.toString();
-        // delete old profile picture
-        amazonClient.deleteProfilePicFromS3Bucket(userImageIdString);
-        // upload new profile picture
-        amazonClient.uploadProfilePic( multipartFile, userImageIdString);
-        return "User picture saved to Amazon S3 server";
+        try {
+            String userImageIdString = userImageId.toString();
+            // delete old profile picture
+            amazonClient.deleteProfilePicFromS3Bucket(userImageIdString);
+            // upload new profile picture
+            amazonClient.uploadProfilePic(multipartFile, userImageIdString);
+            return "User picture saved to Amazon S3 server!";
+        } catch (Exception e) {
+
+            e.printStackTrace();
+            return "User profile picture not saved to server. It may be too large!";
+        }
     }
 }
