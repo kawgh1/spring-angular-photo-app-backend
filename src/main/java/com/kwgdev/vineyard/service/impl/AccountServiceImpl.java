@@ -6,6 +6,7 @@ import com.kwgdev.vineyard.model.UserRole;
 import com.kwgdev.vineyard.repository.AppUserRepository;
 import com.kwgdev.vineyard.repository.RoleRepository;
 import com.kwgdev.vineyard.service.AccountService;
+import com.kwgdev.vineyard.utility.AmazonClient;
 import com.kwgdev.vineyard.utility.Constants;
 import com.kwgdev.vineyard.utility.EmailConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -35,6 +36,9 @@ public class AccountServiceImpl implements AccountService {
 
     @Autowired
     AccountService accountService;
+
+    @Autowired
+    private AmazonClient amazonClient;
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -69,15 +73,16 @@ public class AccountServiceImpl implements AccountService {
         userRoles.add(new UserRole(appUser, accountService.findUserRoleByName("USER")));
         appUser.setUserRoles(userRoles);
         appUserRepository.save(appUser);
-        byte[] bytes;
-        try {
-            bytes = Files.readAllBytes(Constants.TEMP_USER.toPath());
-            String fileName = appUser.getId() + ".png";
-            Path path = Paths.get(Constants.USER_FOLDER + fileName);
-            Files.write(path, bytes);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        // localhost server profile image
+//        byte[] bytes;
+//        try {
+//            bytes = Files.readAllBytes(Constants.TEMP_USER.toPath());
+//            String fileName = appUser.getId() + ".png";
+//            Path path = Paths.get(Constants.USER_FOLDER + fileName);
+//            Files.write(path, bytes);
+
+        String fileName = appUser.getId().toString();
+        amazonClient.uploadDefaultProfileImage(fileName);
 
         // but send the plaintext password to the user email (not ideal, but functional) to confirm
         try {

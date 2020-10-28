@@ -4,9 +4,7 @@ import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3Client;
-import com.amazonaws.services.s3.model.CannedAccessControlList;
-import com.amazonaws.services.s3.model.DeleteObjectRequest;
-import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.amazonaws.services.s3.model.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -15,6 +13,7 @@ import javax.annotation.PostConstruct;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Date;
 
 /**
@@ -63,12 +62,14 @@ public class AmazonClient {
                 .withCannedAcl(CannedAccessControlList.PublicRead));
     }
 
+    // delete post image
     public String deleteFileFromS3Bucket(String postImageName) {
         String fileName = "images/posts/" + postImageName + ".png";
         s3client.deleteObject(new DeleteObjectRequest(bucketName, fileName));
         return "Successfully deleted";
     }
 
+    // upload post image
     public String uploadFile(MultipartFile multipartFile, String postImageName) {
 
 //        String fileName = "";
@@ -79,6 +80,34 @@ public class AmazonClient {
             postImageName = postImageName + ".png";
             uploadFileTos3bucket("images/posts/" + postImageName, file);
             file.delete();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Error occurred. Photo not saved!";
+        }
+
+//        System.out.println("Photo saved successfully!");
+        return "Photo saved successfully!";
+    }
+
+    // upload profile image
+    public String uploadDefaultProfileImage(String profileImageName) {
+
+        // default prof pic stored in S3 used for every new user
+        String profile = "profile.png";
+        try {
+
+            // get stored default prof pic and convert it to inputstream
+            InputStream in = s3client.getObject(bucketName, profile).getObjectContent();
+
+            // convert stored prof pic input stream to file
+            File file = new File (String.valueOf(in));
+            profileImageName = profileImageName + ".png";
+
+            // save file as new user profile pic --> this image can be changed later by user
+            uploadFileTos3bucket("images/users/" + profileImageName, file);
+
+            in.close();
+
         } catch (Exception e) {
             e.printStackTrace();
             return "Error occurred. Photo not saved!";
