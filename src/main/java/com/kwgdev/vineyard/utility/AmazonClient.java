@@ -75,7 +75,8 @@ public class AmazonClient {
         try {
             File file = convertMultiPartToFile(multipartFile);
 //            String fileName = generateFileName(multipartFile);
-            postImageName = endpointUrl + "/" + bucketName + "/images/posts/" + postImageName + ".png";
+//            postImageName = endpointUrl + "/" + bucketName + "/images/posts/" + postImageName + ".png";
+            postImageName = postImageName + ".png";
             uploadFileTos3bucket(postImageName, file);
             file.delete();
         } catch (Exception e) {
