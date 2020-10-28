@@ -100,20 +100,54 @@ public class AmazonClient {
             InputStream in = s3client.getObject(bucketName, profile).getObjectContent();
 
             // convert stored prof pic input stream to file
-            File file = new File (String.valueOf(in));
-            profileImageName = profileImageName + ".png";
+            try {
+                File file = new File("src/main/resources/static/images/users/temp/profile.png");
+                copyInputStreamToFile(in, file);
 
-            // save file as new user profile pic --> this image can be changed later by user
-            uploadFileTos3bucket("images/users/" + profileImageName, file);
+                profileImageName = profileImageName + ".png";
 
-            in.close();
+                // save file as new user profile pic --> this image can be changed later by user
+                uploadFileTos3bucket("images/users/" + profileImageName, file);
+
+                in.close();
+                file.delete();
+            } catch (Exception e) {
+                e.printStackTrace();
+                return "Error converting profile picture";
+            }
+
+
+
+
 
         } catch (Exception e) {
             e.printStackTrace();
-            return "Error occurred. Photo not saved!";
+            return "Error occurred. Default Profile Photo not saved!";
         }
 
 //        System.out.println("Photo saved successfully!");
-        return "Photo saved successfully!";
+        return "Default Profile photo saved successfully!";
+    }
+
+    // helper methods
+
+    // InputStream -> File
+    private static void copyInputStreamToFile(InputStream inputStream, File file)
+            throws IOException {
+
+        try (FileOutputStream outputStream = new FileOutputStream(file)) {
+
+            int read;
+            byte[] bytes = new byte[1024];
+
+            while ((read = inputStream.read(bytes)) != -1) {
+                outputStream.write(bytes, 0, read);
+            }
+
+            // commons-io
+            //IOUtils.copy(inputStream, outputStream);
+
+        }
+
     }
 }
