@@ -101,7 +101,7 @@ public class PostServiceImpl implements PostService {
 
             // unique image name
             String imageName = post.getName();
-            amazonClient.deleteFileFromS3Bucket(imageName);
+            amazonClient.deletePostImageFromS3Bucket(imageName);
             postRepository.deletePostById(post.getId());
             return post;
         } catch (Exception e) {
@@ -142,7 +142,7 @@ public class PostServiceImpl implements PostService {
          */
 
 
-        amazonClient.uploadFile(multipartFile, postImageName);
+        amazonClient.uploadPostImage(multipartFile, postImageName);
 
 
         return "Photo saved successfully!";

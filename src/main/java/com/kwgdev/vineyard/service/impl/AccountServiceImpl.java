@@ -194,15 +194,20 @@ public class AccountServiceImpl implements AccountService {
          * request; Iterator<String> it = multipartRequest.getFileNames(); MultipartFile
          * multipartFile = multipartRequest.getFile(it.next());
          */
-        byte[] bytes;
-        try {
-            Files.deleteIfExists(Paths.get(Constants.USER_FOLDER + "/" + userImageId + ".png"));
-            bytes = multipartFile.getBytes();
-            Path path = Paths.get(Constants.USER_FOLDER + userImageId + ".png");
-            Files.write(path, bytes);
-            return "User picture saved to server";
-        } catch (IOException e) {
-            return "User picture Saved";
-        }
+
+//        localhost server change profile picture
+//        byte[] bytes;
+//        try {
+//            Files.deleteIfExists(Paths.get(Constants.USER_FOLDER + "/" + userImageId + ".png"));
+//            bytes = multipartFile.getBytes();
+//            Path path = Paths.get(Constants.USER_FOLDER + userImageId + ".png");
+//            Files.write(path, bytes);
+
+        String userImageIdString = userImageId.toString();
+        // delete old profile picture
+        amazonClient.deleteProfilePicFromS3Bucket(userImageIdString);
+        // upload new profile picture
+        amazonClient.uploadProfilePic( multipartFile, userImageIdString);
+        return "User picture saved to Amazon S3 server";
     }
 }

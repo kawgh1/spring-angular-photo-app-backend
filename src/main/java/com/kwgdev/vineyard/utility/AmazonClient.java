@@ -63,14 +63,21 @@ public class AmazonClient {
     }
 
     // delete post image
-    public String deleteFileFromS3Bucket(String postImageName) {
+    public String deletePostImageFromS3Bucket(String postImageName) {
         String fileName = "images/posts/" + postImageName + ".png";
         s3client.deleteObject(new DeleteObjectRequest(bucketName, fileName));
         return "Successfully deleted";
     }
 
+    // delete user profile image
+    public String deleteProfilePicFromS3Bucket(String userImageId) {
+        String fileName = "images/users/" + userImageId + ".png";
+        s3client.deleteObject(new DeleteObjectRequest(bucketName, fileName));
+        return "Successfully deleted";
+    }
+
     // upload post image
-    public String uploadFile(MultipartFile multipartFile, String postImageName) {
+    public String uploadPostImage(MultipartFile multipartFile, String postImageName) {
 
 //        String fileName = "";
         try {
@@ -79,6 +86,26 @@ public class AmazonClient {
 //            postImageName = endpointUrl + "/" + bucketName + "/images/posts/" + postImageName + ".png";
             postImageName = postImageName + ".png";
             uploadFileTos3bucket("images/posts/" + postImageName, file);
+            file.delete();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Error occurred. Photo not saved!";
+        }
+
+//        System.out.println("Photo saved successfully!");
+        return "Photo saved successfully!";
+    }
+
+    // upload new profile image
+    public String uploadProfilePic(MultipartFile multipartFile, String userImageIdString) {
+
+//        String fileName = "";
+        try {
+            File file = convertMultiPartToFile(multipartFile);
+//            String fileName = generateFileName(multipartFile);
+//            postImageName = endpointUrl + "/" + bucketName + "/images/users/" + userImageIdString + ".png";
+            userImageIdString = userImageIdString + ".png";
+            uploadFileTos3bucket("images/users/" + userImageIdString, file);
             file.delete();
         } catch (Exception e) {
             e.printStackTrace();
