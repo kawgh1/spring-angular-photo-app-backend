@@ -100,7 +100,7 @@ public class PostServiceImpl implements PostService {
 //            Files.deleteIfExists(Paths.get(Constants.POST_FOLDER + "/" + post.getName() + ".png"));
 
             // unique image name
-            String imageName = "images/posts/" + post.getName() + ".png";
+            String imageName = post.getName() + ".png";
             amazonClient.deleteFileFromS3Bucket(imageName);
             postRepository.deletePostById(post.getId());
             return post;
