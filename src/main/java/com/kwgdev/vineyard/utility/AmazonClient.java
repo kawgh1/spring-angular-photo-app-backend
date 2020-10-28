@@ -63,8 +63,8 @@ public class AmazonClient {
                 .withCannedAcl(CannedAccessControlList.PublicRead));
     }
 
-    public String deleteFileFromS3Bucket(String fileUrl) {
-        String fileName = fileUrl + ".png";
+    public String deleteFileFromS3Bucket(String postImageName) {
+        String fileName = "images/posts/" + postImageName + ".png";
         s3client.deleteObject(new DeleteObjectRequest(bucketName, fileName));
         return "Successfully deleted";
     }
