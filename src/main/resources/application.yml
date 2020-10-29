@@ -1,5 +1,5 @@
-amazonProperties:
-  endpointUrl: https://s3.us-east-2.amazonaws.com
-  accessKey: AKIA3TPBJMS2SYCNE6V4
-  secretKey: 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
-  bucketName: vineyard-photos
+#amazonProperties:
+#  endpointUrl: https://s3.us.amazonaws.com
+#  accessKey: **********************************
+#  secretKey: *********************************
+#  bucketName: **************

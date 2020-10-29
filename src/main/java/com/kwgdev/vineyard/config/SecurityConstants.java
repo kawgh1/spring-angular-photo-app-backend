@@ -6,7 +6,7 @@ package com.kwgdev.vineyard.config;
 public class SecurityConstants {
 
     // this is the secret code that is embedded in every token, this needs to be HIDDEN from deployment
-    public static final String SECRET = "asdfawefaaewr078awe0r8098a098fs0d9f8e098awe0983";
+    public static final String SECRET = "***************";
 
     public static final long EXPIRATION_TIME = 432_000_000; // 5 days
     public static final String TOKEN_PREFIX = "Bearer ";
