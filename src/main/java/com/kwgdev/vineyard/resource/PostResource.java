@@ -86,7 +86,7 @@ public class PostResource {
             System.out.println("Post was saved");
             return new ResponseEntity<>(post, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>("An Error Occured: " + e.getMessage(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("An Error Occurred: " + e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -100,7 +100,7 @@ public class PostResource {
             postService.deletePost(post);
             return new ResponseEntity<>(post, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>("An error occured: " + e.getMessage(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("An error occurred: " + e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 

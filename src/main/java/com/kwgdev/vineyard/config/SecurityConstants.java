@@ -15,5 +15,6 @@ public class SecurityConstants {
     // myWebApp.com  , all other URLS will be denied
     // "http://localhost:4200/*" for dev
     public static final String CLIENT_DOMAIN_URL = "https://spring-angular-photoshar-front.herokuapp.com";
+//    public static final String CLIENT_DOMAIN_URL = "*";
 
 }

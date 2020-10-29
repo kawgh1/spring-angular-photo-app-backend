@@ -70,17 +70,6 @@ public class PostServiceImpl implements PostService {
         return postRepository.findPostByUsername(username);
     }
 
-    // localhost server method
-//    @Override
-//    public Post deletePost(Post post) {
-//        try {
-//            Files.deleteIfExists(Paths.get(Constants.POST_FOLDER + "/" + post.getName() + ".png"));
-//            postRepository.deletePostById(post.getId());
-//            return post;
-//        } catch (Exception e) {
-//            return null;
-//        }
-//    }
 
     // localhost server method
 //    @Override
@@ -94,6 +83,7 @@ public class PostServiceImpl implements PostService {
 //        }
 //    }
 
+    // PRODUCTION AMAZON deletePost method
     @Override
     public Post deletePost(Post post) {
         try {
@@ -132,15 +122,10 @@ public class PostServiceImpl implements PostService {
 //        return "Photo saved successfully!";
 //    }
 
+
+    // PRODUCTION AMAZON savePostImage method
     @Override
     public String savePostImage(MultipartFile multipartFile, String postImageName) {
-
-        /*
-         * MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest)
-         * request; Iterator<String> it = multipartRequest.getFileNames(); MultipartFile
-         * multipartFile = multipartRequest.getFile(it.next());
-         */
-
 
         amazonClient.uploadPostImage(multipartFile, postImageName);
 
